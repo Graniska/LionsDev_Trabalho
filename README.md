@@ -1,5 +1,7 @@
 # trabalho_Lions
-
+# Alunos: Igor
+# Livros: Nataly
+# Aluguel: Guilherme
 ## Introdução
 
 Nosso Código foi criado com a proposta de criar uma `API` com as funções de `C.R.U.D` com o propósito criar uma biblioteca de estudos de uma escola onde tem os registros dos Livros, dos Alunos, e dos Alugueis.
