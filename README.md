@@ -54,36 +54,46 @@ app.listen(port, () => {
 ```
 ## Desenvolvimentos 
 Em nossa equipe separamos funções para cada um dos membros onde o Guilherme ficaria com a parte de crair um documento de `C.R.U.D dos Alugueis`, a Nataly ficaria com a parte de crair um documento de `C.R.U.D dos Livros` e eu com a parte de crair um documento de `C.R.U.D dos Alunos`.
+
 ## Função Criar
 ### Campo Biblioteca (Livro)
-    1. Fazemos a importação do vetor que será utilizado neste modulo.
-        1.1 Em seguida declaramos a função Criar Livro, dentrode seus parâmetros temos req e res.
-        1.2 Req: Armazena informações referente a solicitação HTTP
-        1.3 Res: é utilizado para construir e enviar a resposta ao cliente, incluindo o status HTTP, cabeçalhos e o corpo da resposta.
-    2. Dentro do bloco de código temos um console.log, os dados enviados pelo cliente são armazenados em body, através do comando req.body
-    3. Em seguida declaramos uma variavel que vai receber um objeto comtodas as informações preenchidas pelo usuário
-    4. Fazemos um push para que o vetor alunos receba as novas informações 
-    5. Usamos res.status para enviar uma mensagem em http com status 200 que indica sucesso, assim que o aluno foi adicionado com sucesso.
-    6. Por fim, usamos o module.exports para que o modulo possa ser acessa em outros modulos.
+1. Fazemos a importação do vetor que será utilizado neste modulo.
+    1.1 Em seguida declaramos a função Criar Livro, dentrode seus parâmetros temos req e res.
+    1.2 Req: Armazena informações referente a solicitação HTTP
+   1.3 Res: é utilizado para construir e enviar a resposta ao cliente, incluindo o status HTTP, cabeçalhos e o corpo da resposta.
+2. Dentro do bloco de código temos um console.log, os dados enviados pelo cliente são armazenados em body, através do comando req.body
+3. Em seguida declaramos uma variavel que vai receber um objeto comtodas as informações preenchidas pelo usuário
+ 4. Fazemos um push para que o vetor alunos receba as novas informações 
+5. Usamos res.status para enviar uma mensagem em http com status 200 que indica sucesso, assim que o aluno foi adicionado com sucesso.
+6. Por fim, usamos o module.exports para que o modulo possa ser acessa em outros modulos.
 ```JavaScript
-const {alunos} = require('../data') 
 
-function criarAluno(req, res) {
-    console.log(req.body) // o cliente envia dados e estas informações são armazenadas em body atravpes do comando 'req.body'
-    const novoAluno = {  
-        nome: req.body.nome,
-        matricula: req.body.matricula,
-        curso: req.body.curso,
-        ano: req.body.ano
+const {livros} = require('../data')
+
+function criarLivro(req, res) {
+   
+    console.log(req.body)
+   
+    const novolivro = {
+        id: livros.length + 1,
+        nome: req.body.titulo,
+        autor: req.body.autor,
+        ano: req.body.ano,
+        genero: req.body.genero
     }
-    alunos.push(novoAluno)
-    res.status(201).send({mensagem: 'Aluno Cadastrado com sucesso!', aluno: novoAluno})
+
+    livros.push(novolivro)
+    res.status(201).send({mensagem: 'Livro Criado com Sucesso!', livro: novolivro})
 }
 
-module.exports = {criarAluno}
+module.exports = criarLivro
 ```
 ### Campo Biblioteca (Aluno)
+Foi feita importação do vetor que será utilizado neste modulo, em seguida, declaramos a função Criar Livro, dentrode seus parâmetros temos req e res, onde o `Req` Armazena informações referente a solicitação HTTP e o `Res` é utilizado para construir e enviar a resposta ao cliente, incluindo o status HTTP, cabeçalhos e o corpo da resposta.
 
+Dentro do bloco de código temos um console.log, os dados enviados pelo cliente são armazenados em body, através do comando req.body, em seguida declaramos uma variavel que vai receber um objeto comtodas as informações preenchidas pelo usuário, onde um push é realizado para que o vetor alunos receba as novas informações.
+
+Usamos res.status para enviar uma mensagem em http com status 200 que indica sucesso, assim que o aluno foi adicionado com sucesso e ṕor fim, usamos o module.exports para que o modulo possa ser acessa em outros modulos.
 ```JavaScript
 const {alunos} = require('../data') 
 
@@ -108,9 +118,9 @@ module.exports = {criarAluno}
 ```
 ## Função Listar
 ### Campo Biblioteca (Livro)
-    1. Importamos o vetor Livros
-    2. Declaramos uma variavel que vai receber os parametros req e res
-    3. dentro do bloco de codigo da função, a linha res.status envia uma resposta em http com o status 200 e lista os alunos
+1. Importamos o vetor Livros
+2. Declaramos uma variavel que vai receber os parametros req e res
+3. dentro do bloco de codigo da função, a linha res.status envia uma resposta em http com o status 200 e lista os alunos
 ```JavaScript
 
     const {livros} = require('../data')
@@ -121,8 +131,8 @@ module.exports = {criarAluno}
     
     module.exports = listarLivros
 ```
-### Campo Biblioteca (Aluno)
-
+### Campo Biblioteca (Aluno) 
+Importamos o vetor Alunos, onde declaramos uma variavel que vai receber os parametros req e res que dentro do bloco de codigo da função, a linha res.status envia uma resposta em http com o status 200 e lista os alunos.
 ```JavaScript
 const {alunos} = require('../data') 
 
@@ -177,7 +187,11 @@ const editarAluno = (req, res) => {
 module.exports = {editarAluno}
 ```
 ### Campo Biblioteca (Aluno)
+Realizamos a mportamos a função Alunos para qual, declaramos uma constante editarLivro que recebe req e res como parametro, dentro da função seta declaramos constantes que vão receber novos dados referentes ao titulo, nome, autor, ano e genero.
 
+Adicionamos o código de req.params que extrai o valor do parâmetro id do objeto req.params, esta linha de codigo procura no vetor Livros um livro cujo ID corresponde ao valor de ID. O comando find irá retornar o primeiro livro que atende a essa condição e o armazena na variavel livro.
+
+Declaramos uma condicional que vai verificar se o valor de aluno e null ou undefined, se o valor for igual a true, então a seguinte mensagem sera mostrada. Por fim substituimos os valor dos atributos ja existentes pelos novos valores que o cliente definiu
 ```JavaScript
 const {alunos} = require('../data') 
 
@@ -237,7 +251,7 @@ const removerAluno = (req, res) => {
 module.exports = {removerAluno}
 ```
 ### Campo Biblioteca (Aluno)
-
+Realizamos a importamos o vetor Aluno, declaramos uma constante que vai receber req e res como parametro que dentro do bloco de codigo temos uma constante que ira extrair o valor do parâmetro id do objeto req.params e armazena diretamente em ID. Declaramos uma condicional que vai verificar se o valor retornado pelo find sera -1, se o valor for igual a true usamos o res.status para enviar uma resposta em http com o metodo 400, que indica erro.
 ```JavaScript
 const {alunos} = require('../data') 
 
@@ -258,5 +272,69 @@ module.exports = {removerAluno}
 ### Campo Biblioteca (Aluguel)
 
 ```JavaScript
+
+```
+## Novidades Funções de Busca
+Adiciuonaos novas funções para o nosso código, nas quais seriam as funções de busca para cada um dos campos de biblioteca
+Para as funções de busca de cada campo foi determinado que seriam da seguinte forma:
+ ### Campo Livros
+    1. Buscar livros por título 
+    2. Buscar livros por autor 
+    3. Buscar livros por ano 
+    4. Buscar livros por gênero 
+### Campo Alunos 
+    1. Buscar estudantes por nome
+    2. Buscar estudantes por matrícula
+    3. Buscar estudantes por curso
+### Campo Alugueis
+    1. Buscar aluguéis por data
+    2. Buscar aluguéis por ID do livro
+    3. Buscar aluguéis por ID do estudante
+Códigos das Novas Funções: 
+ ### Campo Livros
+ ```JavaScript
+
+```
+ ### Campo Alunos
+  ```JavaScript
+const {alunos} = require('../data')
+
+function buscarNome(req, res) {
+    const {idAluno} = req.params
+    const nomes = alunos.filter(aluno => aluno.idAluno === parseInt(idAluno))
+
+    if (nomes.lenght > 0) {
+        res.status(200).send(nomes)
+    } else {
+        res.status(404).send({mensagem: 'Nenhum Aluno Encontrado'})
+    }
+}
+
+function buscarMatricula(req, res) {
+    const {idAluno} = req.params
+    const matriculas = alunos.filter(aluno => aluno.idAluno === parseInt(idAluno))
+
+    if (matriculas.lenght > 0) {
+        res.status(200).send(matriculas)
+    } else {
+        res.status(404).send({mensagem: 'Nenhuma Matricula Encontrada'})
+    }
+}
+
+function buscarCurso(req, res) {
+    const {idAluno} = req.params
+    const cursos = alunos.filter(aluno => aluno.idAluno === parseInt(idAluno))
+
+    if (cursos.lenght > 0) {
+        res.status(200).send(cursos)
+    } else {
+        res.status(404).send({mensagem: 'Nenhum Curso Encontrado'})
+    }
+}
+
+module.exports = {buscarNome, buscarMatricula, buscarCurso}
+```
+ ### Campo Alugueis
+  ```JavaScript
 
 ```
