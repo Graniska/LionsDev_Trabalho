@@ -15,33 +15,33 @@ app.put('/aluno/:id', editarAluno);
 const removerAluno = require('./aluno/removerAluno');
 app.delete('/aluno/:id', removerAluno);
 
-const buscarNome = require('./aluno/buscar');
-app.get('/aluno', buscarNome);
+//const buscarNome = require('./aluno/buscar');
+//app.get('/aluno', buscarNome);
 
-const buscarMatricula = require('./aluno/buscar');
-app.get('/aluno', buscarMatricula);
+//const buscarMatricula = require('./aluno/buscar');
+//app.get('/aluno', buscarMatricula);
 
-const buscarCurso = require('./aluno/buscar');
-app.get('/aluno', buscarCurso);
+//const buscarCurso = require('./aluno/buscar');
+//app.get('/aluno', buscarCurso);
 
 // Rotas para livro
-const criar = require('./livro/criar');
+const criar = require('./livro/criarLivro');
 app.post('/livro', criar);
 
-const listar = require('./livro/listar');
+const listar = require('./livro/listarLivro');
 app.get('/livro', listar);
 
-const editar = require('./livro/editar');
+const editar = require('./livro/editarLivro');
 app.put('/livro', editar);
 
-const remover = require('./livro/remover');
+const remover = require('./livro/removerLivro');
 app.delete('/livro/:id', remover);
 
 app.use(express.json()); //
 
 
 
-app.get('/', (req, res) => {
+app.use('/', (req, res) => {
     res.send('Servidor Express está funcionando!');     // app esta definindo uma ROTA URL
                                                       // '/' É a raiz ou o caminho URL do seu aplicativo
                                                       // req armazena as solicitações feitas em URL
@@ -51,6 +51,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
 
 // Resumidamente
 //app.listen inicia o servidor express e faz com que ele escute solicitações feita na porta especificada

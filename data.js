@@ -16,10 +16,10 @@ let alunos = {
     }
     
 let aluguel = {
-    "": "",
-    "": "",
-    "": "",
-    "": "",
+    "idLivro": 1,
+    "idEstudante": 1,
+    "dataAluguel": "2024-08-01",
+    "dataDevolucao": "2924-08-15",
 }
 
-module.exports = {livros, alunos}
+module.exports = {livros, alunos, aluguel}
