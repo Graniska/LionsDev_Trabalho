@@ -112,9 +112,30 @@ function criarAluno(req, res) {
 module.exports = {criarAluno}
 ```
 ### Campo Biblioteca (Aluguel)
+Foi feita importação do vetor que será utilizado neste modulo, em seguida, declaramos a função Criar Livro, dentrode seus parâmetros temos req e res, onde o `Req` Armazena informações referente a solicitação HTTP e o `Res` é utilizado para construir e enviar a resposta ao cliente, incluindo o status HTTP, cabeçalhos e o corpo da resposta.
 
+Dentro do bloco de código temos um console.log, os dados enviados pelo cliente são armazenados em body, através do comando req.body, em seguida declaramos uma variavel que vai receber um objeto comtodas as informações preenchidas pelo usuário, onde um push é realizado para que o vetor alunos receba as novas informações.
+
+Usamos res.status para enviar uma mensagem em http com status 200 que indica sucesso, assim que o aluno foi adicionado com sucesso e ṕor fim, usamos o module.exports para que o modulo possa ser acessa em outros modulos.
 ```JavaScript
+const { aluguel } = require('/..data');
 
+function criarAluguel(req, res) {
+    console.log(req.body);
+    const novoAluguel = {
+    idLivro: alugueis.length + 1,
+    idEstudante: req.body.estudante,
+    dataAluguel: req.body.dataAluguel
+    };
+    alugueis.push(novoAluguel)
+    res
+        .status(201)
+        .send({
+            message: 'Aluguel criado zé né coisa!', aluguel: novoAluguel, dataAluguel: novoDataAluguel
+        });
+}
+
+modulo.exports = criarAluguel
 ```
 ## Função Listar
 ### Campo Biblioteca (Livro)
@@ -144,9 +165,15 @@ const listarAluno = (req, res) => {
 module.exports = {listarAluno}
 ```
 ### Campo Biblioteca (Aluguel)
-
+Importamos o vetor Alunos, onde declaramos uma variavel que vai receber os parametros req e res que dentro do bloco de codigo da função, a linha res.status envia uma resposta em http com o status 200 e lista os alunos.
 ```JavaScript
+const { alugueis } = require('../data');
 
+const listarAlugeis = (req, res) => {
+    res.status(200).send(alugueis);
+};
+
+module.exports = listarAlugeis;
 ```
 ## Função Editar
 ### Campo Biblioteca (Livro)
@@ -221,9 +248,34 @@ const editarAluno = (req, res) => {
 module.exports = {editarAluno}
 ```
 ### Campo Biblioteca (Aluguel)
+Realizamos a mportamos a função Alunos para qual, declaramos uma constante editarLivro que recebe req e res como parametro, dentro da função seta declaramos constantes que vão receber novos dados referentes ao titulo, nome, autor, ano e genero.
 
+Adicionamos o código de req.params que extrai o valor do parâmetro id do objeto req.params, esta linha de codigo procura no vetor Livros um livro cujo ID corresponde ao valor de ID. O comando find irá retornar o primeiro livro que atende a essa condição e o armazena na variavel livro.
+
+Declaramos uma condicional que vai verificar se o valor de aluno e null ou undefined, se o valor for igual a true, então a seguinte mensagem sera mostrada. Por fim substituimos os valor dos atributos ja existentes pelos novos valores que o cliente definiu
 ```JavaScript
+const { alugueis } = require('../data');
 
+const atualizarAluguel = (req, res) => {
+    const { id } = req.params;
+    const novoDataAluguel = req.body.dataAluguel;
+    const novaDataDevolucao = req.body.dataDevolucao;
+
+    const aluguel = alugueis.find((b) => b.id == id);
+
+    if (!alugueis) {
+        return res.status(404).send({ message: 'aluguel não encontrado' });
+    }
+
+    aluguel.dataAluguel = novoDataAluguel;
+    aluguel.dataDevolucao = novaDataDevolucao;
+    res.status(200).send({
+        message: 'Aluguel atualizado com secessio!',
+        aluguel: aluguel
+    });
+}
+
+modulo.exports = atualizarAluguel;
 ```
 ## Função Remover
 ### Campo Biblioteca (Livro)
@@ -270,9 +322,27 @@ const removerAluno = (req, res) => {
 module.exports = {removerAluno}
 ```
 ### Campo Biblioteca (Aluguel)
-
+Realizamos a importamos o vetor Aluno, declaramos uma constante que vai receber req e res como parametro que dentro do bloco de codigo temos uma constante que ira extrair o valor do parâmetro id do objeto req.params e armazena diretamente em ID. Declaramos uma condicional que vai verificar se o valor retornado pelo find sera -1, se o valor for igual a true usamos o res.status para enviar uma resposta em http com o metodo 400, que indica erro.
 ```JavaScript
+const { alugueis } = require('../data');
 
+const removerAluguel = (req, res) => {
+    const { id } = req.params;
+    const index = alugueis.findIndex((b) => b.id == id);
+
+    if (index === -1) {
+        return res.status(404).send('Aluguel não encontrado!');
+    }
+
+    const aluguelDeletado = alugueis.splice(index, 1)[0];
+
+    res.status(200).send({
+        message: 'Alugel deletado com sucesso!',
+        aluguel: aluguelDeletado
+    });
+}
+
+module.exports = removerAluguel;
 ```
 ## Novidades Funções de Busca
 Adiciuonaos novas funções para o nosso código, nas quais seriam as funções de busca para cada um dos campos de biblioteca
