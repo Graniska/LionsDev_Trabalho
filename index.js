@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Middleware para processar JSON
+app.use(express.json());
+
+
 // Rotas para aluno
 const criarAluno = require('./aluno/criarAluno');
 app.post('/aluno', criarAluno);
@@ -25,33 +29,26 @@ app.delete('/aluno/:id', removerAluno);
 //app.get('/aluno', buscarCurso);
 
 // Rotas para livro
-const criar = require('./livro/criarLivro');
-app.post('/livro', criar);
+const criarLivro = require('./livro/criarLivro');
+app.post('/livro', criarLivro);
 
-const listar = require('./livro/listarLivro');
-app.get('/livro', listar);
+const listarLivro = require('./livro/listarLivro');
+app.get('/livro', listarLivro);
 
-const editar = require('./livro/editarLivro');
-app.put('/livro', editar);
+const editarLivro = require('./livro/editarLivro');
+app.put('/livro/:id', editarLivro); // Ajustado para incluir :id na URL
 
-const remover = require('./livro/removerLivro');
-app.delete('/livro/:id', remover);
-
-app.use(express.json()); //
-
-
-
-app.use('/', (req, res) => {
-    res.send('Servidor Express está funcionando!');     // app esta definindo uma ROTA URL
+const removerLivro = require('./livro/removerLivro');
+app.delete('/livro/:id', removerLivro);
+    
+                                                      // app esta definindo uma ROTA URL
                                                       // '/' É a raiz ou o caminho URL do seu aplicativo
                                                       // req armazena as solicitações feitas em URL
                                                       // res retorna as respostas para cada requisição
-});
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
 
 // Resumidamente
 //app.listen inicia o servidor express e faz com que ele escute solicitações feita na porta especificada

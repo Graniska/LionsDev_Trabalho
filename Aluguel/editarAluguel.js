@@ -19,7 +19,7 @@ const atualizarAluguel = (req, res) => {
     });
 }
 
-modulo.exports = atualizarAluguel;
+module.exports = atualizarAluguel;
 
 /*"dataAluguel": "2024-08-15"
 “dataDevolucao": "2024-08-15"*/
