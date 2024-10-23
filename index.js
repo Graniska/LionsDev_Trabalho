@@ -7,16 +7,16 @@ app.use(express.json());
 
 
 // Rotas para aluno
-const criarAluno = require('./aluno/criarAluno');
+const criarAluno = require('./Aluno/criarAluno');
 app.post('/aluno', criarAluno);
 
-const listarAluno = require('./aluno/listarAluno');
+const listarAluno = require('./Aluno/listarAluno');
 app.get('/aluno', listarAluno);
 
-const editarAluno = require('./aluno/editarAluno');
+const editarAluno = require('./Aluno/editarAluno');
 app.put('/aluno/:id', editarAluno);
 
-const removerAluno = require('./aluno/removerAluno');
+const removerAluno = require('./Aluno/removerAluno');
 app.delete('/aluno/:id', removerAluno);
 
 //const buscarNome = require('./aluno/buscar');
@@ -29,22 +29,34 @@ app.delete('/aluno/:id', removerAluno);
 //app.get('/aluno', buscarCurso);
 
 // Rotas para livro
-const criarLivro = require('./livro/criarLivro');
+const criarLivro = require('./Livro/criarLivro');
 app.post('/livro', criarLivro);
 
-const listarLivro = require('./livro/listarLivro');
+const listarLivro = require('./Livro/listarLivro');
 app.get('/livro', listarLivro);
 
-const editarLivro = require('./livro/editarLivro');
+const editarLivro = require('./Livro/editarLivro');
 app.put('/livro/:id', editarLivro); // Ajustado para incluir :id na URL
 
-const removerLivro = require('./livro/removerLivro');
+const removerLivro = require('./Livro/removerLivro');
 app.delete('/livro/:id', removerLivro);
     
                                                       // app esta definindo uma ROTA URL
                                                       // '/' É a raiz ou o caminho URL do seu aplicativo
                                                       // req armazena as solicitações feitas em URL
                                                       // res retorna as respostas para cada requisição
+
+const criarAluguel = require('./Aluguel/criarAluguel');
+app.post('/aluguel', criarAluguel);
+
+const listarAluguel = require('./Aluguel/listarAluguel');
+app.get('/aluguel', listarAluguel);
+
+const editarAluguel = require('./Aluguel/editarAluguel');
+app.put('/aluguel/:id', editarAluguel); // Ajustado para incluir :id na URL
+
+const removerAluguel = require('./Aluguel/removerAluguel');
+app.delete('/aluguel/:id', removerAluguel);
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
